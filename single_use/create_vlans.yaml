@@ -1,0 +1,31 @@
+---
+  - name: Create vlans
+    hosts: switches
+    
+    collections:
+      - cisco.ios
+
+    vars_files:
+      - vlans.yaml
+
+    tasks:
+      - name: "Create vlans"
+        ios_vlans:
+          config:
+          - name: "{{ vlan_prefix }}{{ vlan['name'] }}"
+            vlan_id: "{{ vlan['id'] }}"
+        loop: "{{ vlans }}"
+        loop_control:
+          label: "{{ vlan['name'] }}"
+          loop_var: vlan
+        notify:
+          - Backup and save config
+
+    handlers:
+      - name: Backup and save config
+        ios_config:
+          backup: yes
+          backup_options:
+            dir_path: ./backups
+            filename: "{{ inventory_hostname }}.ios"
+          save_when: always

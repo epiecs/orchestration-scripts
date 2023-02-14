@@ -1,0 +1,16 @@
+---
+- name: Base security settings
+  hosts: network
+  roles:
+    - common_security
+  tags:
+    - common
+    - security
+
+- name: Configure vlans
+  hosts: switches
+  roles:
+    - vlans
+  tags:
+    - switching
+    - vlans

@@ -1,0 +1,16 @@
+---
+  - name: Set hostnames
+    hosts: sw-acc-1
+    gather_facts: false
+
+    # vars_files:
+    #   - ../secrets.yaml
+
+    tasks:
+      - name: Set hostname
+        ios_system:
+          hostname: "{{ inventory_hostname | upper }}"
+
+      - name: Save running config
+        ios_config:
+          save_when: always

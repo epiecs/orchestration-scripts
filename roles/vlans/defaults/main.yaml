@@ -1,0 +1,6 @@
+---
+vlan_prefix: ""
+
+vlans:
+  - name: default
+    id: 1

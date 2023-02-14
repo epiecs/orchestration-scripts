@@ -1,0 +1,19 @@
+---
+  - name: Create vlans
+    hosts: switches
+
+    collections:
+      - cisco.ios
+
+    vars_files:
+      - vlans.yaml
+
+    tasks:
+      - name: Configure vlans
+        ios_config:
+          src: templates/vlans.j2
+
+      # - name: Test jinja2template
+      #   template: 
+      #     src: vlans.j2 
+      #     dest: vlans_render.txt

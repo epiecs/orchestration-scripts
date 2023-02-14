@@ -1,0 +1,15 @@
+---
+  - name: Base config
+    hosts: all
+
+    collections:
+      - cisco.ios
+
+    tasks:
+      - name: Base config
+        ios_config:
+          src: templates/base.j2
+
+      # - name: Base config
+      #   cli_config:
+      #     config: "{{ lookup('template', 'templates/base.j2') }}"

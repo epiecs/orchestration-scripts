@@ -1,0 +1,14 @@
+---
+vlan_prefix: "vlan_"
+
+native_vlan: 99
+
+vlans:
+  - name: it
+    id: 10
+  - name: corp
+    id: 20
+  - name: mgmt
+    id: 90
+  - name: native
+    id: 99

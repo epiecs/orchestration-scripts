@@ -1,0 +1,6 @@
+---
+ntp_server: 45.87.78.35
+banner_message: |
+  ----------------------------------
+  - no unauthorized access allowed -
+  ----------------------------------

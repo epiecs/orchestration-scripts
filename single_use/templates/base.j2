@@ -1,0 +1,11 @@
+hostname {{ inventory_hostname | upper }}
+
+no ip domain-lookup
+
+line con 0
+  logging synchronous
+
+line vty 0 15
+  logging synchronous
+  login local
+  transport input ssh

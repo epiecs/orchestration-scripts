@@ -1,0 +1,4 @@
+---
+block_time: 120     # How many seconds do we block a user after too many failed attempts
+block_attempts: 3   # How many failed attempts before we take action
+block_window: 60    # Timeframe before the block_attempt counter resets

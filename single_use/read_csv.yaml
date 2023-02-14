@@ -1,0 +1,18 @@
+---
+  - name: Create vlans
+    hosts: localhost
+    gather_facts: false
+
+    tasks:
+      - name: Read vlans csv
+        read_csv:
+          path: vlans.csv
+        register: csv_vlans
+        delegate_to: localhost
+
+      - name: Show vlans
+        debug:
+          var: "{{ item }}"
+        loop: "{{ csv_vlans['list'] }}"
+        loop_control:
+          label: "{{ item }}"

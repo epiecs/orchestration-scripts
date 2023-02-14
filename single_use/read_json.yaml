@@ -1,0 +1,15 @@
+---
+  - name: Create vlans
+    hosts: localhost
+    gather_facts: false
+
+    vars:
+      json_vlans: "{{ lookup('file', 'vlans.json') | from_json }}"
+
+    tasks:
+      - name: Show vlans
+        debug:
+          var: "{{ item }}"
+        loop: "{{ json_vlans['vlans'] }}"
+        loop_control:
+          label: "{{ item }}"

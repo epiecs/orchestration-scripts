@@ -1,0 +1,40 @@
+---
+  - name: First 5 minutes
+    hosts: all
+
+    collections:
+      - cisco.ios
+
+    tasks:
+      - name: Set hostname
+        ios_system:
+          hostname: "{{ inventory_hostname | upper }}"
+      
+      - name: Config logging, http, passwords and max login attempts
+        ios_config:
+          lines:
+            - "no logging console"
+            - "no ip http server"
+            - "service password-encryption"
+            - "login block-for 120 attempts 3 within 60"
+  
+      - name: Set the ntp server
+        ios_ntp_global:
+          config:
+            peers:
+              - peer: 45.87.78.35
+                prefer: true
+          state: overridden
+
+      - name: Configure the login banner
+        ios_banner:
+          banner: motd
+          text: |
+            ----------------------------------
+            - no unauthorized access allowed -
+            ----------------------------------
+          state: present
+
+      - name: Save running config
+        ios_config:
+          save_when: always

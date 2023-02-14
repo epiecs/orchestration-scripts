@@ -1,0 +1,19 @@
+---
+  - name: Rename uplinks
+    hosts: access_switches
+
+    vars_prompt:
+      - name: uplink_name
+        prompt: Description voor uplinks?
+        default: "UPLINK-DISTRI"
+
+    tasks:
+      - name: Set uplink description
+        ios_interfaces:
+          config:
+            - name: GigabitEthernet0/1
+              description: "{{ uplink_name }}"
+              enabled: true
+            - name: GigabitEthernet0/2
+              description: "{{ uplink_name }}"
+              enabled: true

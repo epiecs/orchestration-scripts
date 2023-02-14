@@ -1,0 +1,12 @@
+vlan 10
+name vlan_it
+exit
+vlan 20
+name vlan_corp
+exit
+vlan 90
+name vlan_mgmt
+exit
+vlan 99
+name vlan_native
+exit

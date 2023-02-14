@@ -1,0 +1,33 @@
+---
+  - name: Get version and uptime
+    hosts: routers
+
+    tasks:
+      - name: Get device version
+        ios_command:
+          commands: 
+            - "show version | inc Version"
+            - "show version | inc uptime"
+        register: commands_output
+
+      - name: Show commands output
+        debug:
+          var: commands_output['stdout']
+
+  - name: Get l3 interfaces
+    hosts: access_switches
+
+    tasks:
+        - name: Collect IOS facts
+          ios_facts:
+            gather_subset: min
+            gather_network_resources: l3_interfaces
+          register: sw_facts
+
+        - name: L3 interfaces
+          debug:
+            var: sw_facts['ansible_facts']['ansible_network_resources']['l3_interfaces']
+
+        - name: Serial number
+          debug:
+            var: sw_facts['ansible_facts']['ansible_net_serialnum']

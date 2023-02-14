@@ -1,0 +1,4 @@
+---
+- name: Save the running config
+  ios_config:
+    save_when: always
