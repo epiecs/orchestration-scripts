@@ -1,0 +1,11 @@
+---
+- name: Create lag group
+  ios_linkagg:
+    group: "{{lagg['key']}}"
+    mode: active
+    members: "{{lagg['value']}}"
+  loop: "{{ laggs | dict2items}}"
+  loop_control:
+    label: "{{ lagg['key'] }}"
+    loop_var: lagg
+

@@ -1,2 +1,6 @@
 ---
-uplink_name: "UPLINK-DISTRI"
+trunk_name: "UPLINK-DISTRI"
+
+trunk_interfaces:
+- GigabitEthernet0/1
+- GigabitEthernet0/2

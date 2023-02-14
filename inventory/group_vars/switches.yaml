@@ -1,12 +1,17 @@
 ---
-# vlan_prefix: "vlan_"
+native_vlan: "99"
+allowed_vlans: "10,20,90"
 
-# vlans:
-#   - name: it
-#     id: 10
-#   - name: corp
-#     id: 20
-#   - name: mgmt
-#     id: 90
-#   - name: native
-#     id: 99
+vlan_prefix: "vlan_"
+
+vlans:
+  - name: it
+    id: 10
+  - name: corp
+    id: 20
+  - name: mgmt
+    id: 90
+  - name: native
+    id: 99
+
+spanning_tree_mode: "rapid-pvst"

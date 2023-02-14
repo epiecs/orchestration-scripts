@@ -1,0 +1,26 @@
+---
+- name: Set uplink description
+  ios_interfaces:
+    config:
+      - name: "{{interface}}"
+        description: "{{ trunk_name }}"
+        enabled: true
+  loop: "{{ trunk_interfaces }}"
+  loop_control:
+    label: "{{ interface }}"
+    loop_var: interface
+
+- name: Configure trunks
+  ios_l2_interfaces:
+    config:
+    - name: "{{interface}}"
+      mode: trunk
+      trunk:
+        allowed_vlans: "{{allowed_vlans}}"
+        native_vlan: "{{native_vlan}}"
+        encapsulation: dot1q
+    state: replaced
+  loop: "{{ trunk_interfaces }}"
+  loop_control:
+    label: "{{ interface }}"
+    loop_var: interface

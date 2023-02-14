@@ -1,0 +1,14 @@
+---
+trunk_interfaces:
+- GigabitEthernet1/0
+- GigabitEthernet1/1
+- GigabitEthernet1/2
+- GigabitEthernet1/3
+- Port-channel1
+
+spanning_tree_priority: 8192
+
+router_id: 10.0.0.21
+ospf_interfaces:
+  - GigabitEthernet0/1
+  - GigabitEthernet0/2

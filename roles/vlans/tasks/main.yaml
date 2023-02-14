@@ -1,30 +1,10 @@
 ---
-- name: Set the hostname
-  ios_system:
-    hostname: "{{ inventory_hostname | upper }}"
-  notify: Save the running config
-
-- name: Config logging, http, passwords and max login attempts
-  ios_config:
-    lines:
-      - "no logging console"
-      - "no ip http server"
-      - "service password-encryption"
-      - "login block-for {{block_time}} attempts {{block_attempts}} within {{block_window}}"
-  notify: Save the running config
-
-- name: Set the ntp server
-  ios_ntp_global:
+- name: "Create vlans"
+  ios_vlans:
     config:
-      peers:
-        - peer: "{{ ntp_server }}"
-          prefer: true
-    state: overridden
-  notify: Save the running config
-
-- name: Configure the login banner
-  ios_banner:
-    banner: motd
-    text: "{{banner_message}}"
-    state: present
-  notify: Save the running config
+    - name: "{{ vlan_prefix }}{{ vlan['name'] }}"
+      vlan_id: "{{ vlan['id'] }}"
+  loop: "{{ vlans }}"
+  loop_control:
+    label: "{{ vlan['name'] }}"
+    loop_var: vlan

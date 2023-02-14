@@ -1,0 +1,6 @@
+---
+- name: Set spanning tree priority
+  ios_config:
+    lines:
+      - "spanning-tree mode {{spanning_tree_mode}}"
+      - "spanning-tree vlan 1-4094 priority {{spanning_tree_priority}}"

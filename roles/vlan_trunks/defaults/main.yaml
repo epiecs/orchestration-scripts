@@ -1,0 +1,6 @@
+---
+trunk_name: TRUNK
+native_vlan: "99"
+allowed_vlans: "1"
+trunk_interfaces:
+  - GigabitEthernet0/1

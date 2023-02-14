@@ -7,10 +7,47 @@
     - common
     - security
 
-- name: Configure vlans
+- name: Vlans
   hosts: switches
   roles:
     - vlans
   tags:
     - switching
     - vlans
+
+- name: LAGG
+  hosts:
+    - distribution_switches
+  roles:
+    - link_aggregation
+  tags:
+    - switching
+    - backbone
+    - laggs
+
+- name: Trunks
+  hosts: switches
+  roles:
+    - vlan_trunks
+  tags:
+    - switching
+    - trunks
+
+- name: Spanning tree
+  hosts: switches
+  roles:
+    - spanning_tree
+  tags:
+    - switching
+    - spanning-tree
+
+- name: OSPF routing
+  hosts:
+    - routers
+    - distribution_switches
+  roles:
+    - ospf_router
+  tags:
+    - routing
+    - backbone
+    - ospf

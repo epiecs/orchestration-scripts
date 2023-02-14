@@ -1,0 +1,7 @@
+---
+trunk_name: "DOWNLINK-ACC"
+
+laggs:
+  1:
+    - GigabitEthernet3/0
+    - GigabitEthernet3/1
