@@ -1,7 +1,10 @@
+servers:
+  hosts:
+    pc4:
+      ansible_host: 10.0.20.13
 network:
   children:
     routers:
-      vars:
       hosts:
         r1:
           ansible_host: 10.0.100.11

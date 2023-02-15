@@ -1,0 +1,77 @@
+---
+  - name: Install Ansible
+    hosts: pc4
+
+    vars_prompt:
+    - name: ansible_user
+      prompt: "Enter your existing username"
+      private: false
+    - name: ansible_ssh_pass
+      prompt: "Enter your existing password"
+
+    vars:
+      adduser: automation
+      addgroup: automation
+      ansible_become: true
+      ansible_become_password: "{{ansible_ssh_pass}}"
+      orchestration_user: "ansible"
+      orchestration_group: "ansible"
+      orchestration_directory: "/srv/orchestration"
+
+    tasks:
+      - name: Install neccesary packages
+        apt:
+          name:
+            - python3
+            - python3-pip
+            - python3-venv
+          state: latest
+          cache_valid_time: 3600
+          update_cache: yes
+
+      - name: Update pip to latest version
+        pip:
+          name: pip
+          extra_args: --upgrade
+
+      - name: Install python pip packages
+        pip:
+          name:
+            - wheel
+            - setuptools
+
+      - name: Add ansible group
+        group:
+          name: "{{ orchestration_group }}"
+          state: present
+
+      - name: Add current user to ansible group
+        user:
+          name: "{{ ansible_user }}"
+          groups: "{{ orchestration_group }}"
+          append: yes
+
+      - name: Add Ansible service user
+        user:
+          name: "{{ orchestration_user }}"
+          group: "{{ orchestration_group }}"
+          state: present
+          create_home: false
+          shell: /bin/bash
+          home: "{{ orchestration_directory }}"
+      
+      - name: Create Ansible directory and set permissions
+        file:
+          path: "{{ orchestration_directory }}"
+          state: directory
+          owner: "{{ orchestration_user }}"
+          group: "{{ orchestration_group }}"
+          mode: 'ug=rwx,o=rx,g+s'
+
+      - name: Install Ansible within a virtual environment
+        pip:
+          chdir: "{{ orchestration_directory }}"
+          virtualenv: "{{ orchestration_directory }}/.venv"
+          name:
+            - ansible
+            - ansible-pylibssh
